@@ -1,0 +1,172 @@
+{
+  "profiles": {
+    "sales": {
+      "file": "sales_train.csv",
+      "role": "Event",
+      "rows": 2935849,
+      "columns": 6,
+      "column_names": [
+        "date",
+        "date_block_num",
+        "shop_id",
+        "item_id",
+        "item_price",
+        "item_cnt_day"
+      ],
+      "size_kb": 92386.6,
+      "candidate_primary_keys": [],
+      "constant_columns": [],
+      "null_counts": {
+        "date": 0,
+        "date_block_num": 0,
+        "shop_id": 0,
+        "item_id": 0,
+        "item_price": 0,
+        "item_cnt_day": 0
+      },
+      "distinct_counts": {
+        "date": 1034,
+        "date_block_num": 34,
+        "shop_id": 60,
+        "item_id": 21807,
+        "item_price": 19993,
+        "item_cnt_day": 198
+      },
+      "primary_key_note": "sales_train.csv has no natural single-column primary key. A surrogate sale_id is generated from source row order in load_and_join.py.",
+      "negative_item_price_rows": 1,
+      "negative_item_cnt_day_rows": 7356
+    },
+    "shops": {
+      "file": "shops.csv",
+      "role": "Entity",
+      "rows": 60,
+      "columns": 2,
+      "column_names": [
+        "shop_name",
+        "shop_id"
+      ],
+      "size_kb": 2.9,
+      "candidate_primary_keys": [
+        "shop_name",
+        "shop_id"
+      ],
+      "constant_columns": [],
+      "null_counts": {
+        "shop_name": 0,
+        "shop_id": 0
+      },
+      "distinct_counts": {
+        "shop_name": 60,
+        "shop_id": 60
+      }
+    },
+    "items": {
+      "file": "items.csv",
+      "role": "Entity",
+      "rows": 22170,
+      "columns": 3,
+      "column_names": [
+        "item_name",
+        "item_id",
+        "item_category_id"
+      ],
+      "size_kb": 1531.7,
+      "candidate_primary_keys": [
+        "item_name",
+        "item_id"
+      ],
+      "constant_columns": [],
+      "null_counts": {
+        "item_name": 0,
+        "item_id": 0,
+        "item_category_id": 0
+      },
+      "distinct_counts": {
+        "item_name": 22170,
+        "item_id": 22170,
+        "item_category_id": 84
+      }
+    },
+    "item_categories": {
+      "file": "item_categories.csv",
+      "role": "Lookup",
+      "rows": 84,
+      "columns": 2,
+      "column_names": [
+        "item_category_name",
+        "item_category_id"
+      ],
+      "size_kb": 3.5,
+      "candidate_primary_keys": [
+        "item_category_name",
+        "item_category_id"
+      ],
+      "constant_columns": [],
+      "null_counts": {
+        "item_category_name": 0,
+        "item_category_id": 0
+      },
+      "distinct_counts": {
+        "item_category_name": 84,
+        "item_category_id": 84
+      }
+    }
+  },
+  "integrity": {
+    "foreign_keys_resolve": {
+      "sales.shop_id -> shops.shop_id": true,
+      "sales.item_id -> items.item_id": true,
+      "items.item_category_id -> item_categories.item_category_id": true
+    },
+    "orphan_counts": {
+      "sales_without_shop": 0,
+      "sales_without_item": 0,
+      "items_without_category": 0
+    }
+  },
+  "eligibility": {
+    "condition_1_three_related_files": {
+      "met": true,
+      "qualifying_files": [
+        "sales",
+        "shops",
+        "items"
+      ],
+      "lookup_files_excluded": [
+        "item_categories"
+      ]
+    },
+    "condition_2_one_to_many": {
+      "met": true,
+      "associations": [
+        {
+          "parent": "shops",
+          "child": "sales",
+          "key": "shop_id",
+          "children_min": 306,
+          "children_median": 42037,
+          "children_max": 235636
+        },
+        {
+          "parent": "items",
+          "child": "sales",
+          "key": "item_id",
+          "children_min": 1,
+          "children_median": 32,
+          "children_max": 31340
+        }
+      ]
+    },
+    "condition_3_timestamp": {
+      "met": true,
+      "field": "sales.date",
+      "min": "2013-01-01 00:00:00",
+      "max": "2015-10-31 00:00:00",
+      "span_days": 1033
+    },
+    "condition_4_volume": {
+      "met": true,
+      "event_rows": 2935849
+    }
+  }
+}

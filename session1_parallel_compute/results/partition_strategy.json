@@ -1,0 +1,179 @@
+{
+  "chosen_key": "shop_id",
+  "owned_by": "sales + shops",
+  "join_survival": {
+    "key": "shop_id",
+    "present_after_join": true,
+    "entered_from": "sales + shops",
+    "nulls_after_join": 0,
+    "verdict": "survives the join intact"
+  },
+  "prediction": {
+    "distinct": 60,
+    "min": 306,
+    "median": 42037,
+    "max": 235636,
+    "skew_ratio": 770.05
+  },
+  "alternative": {
+    "column": "item_id",
+    "source_file": "sales + items",
+    "distinct": 21807,
+    "min": 1,
+    "median": 32,
+    "max": 31340,
+    "skew_ratio": 31340.0,
+    "viable": true,
+    "rejected_because": ""
+  },
+  "all_candidates": [
+    {
+      "column": "sale_id",
+      "source_file": "derived from sales row order",
+      "distinct": 2935849,
+      "min": 1,
+      "median": 1,
+      "max": 1,
+      "skew_ratio": 1.0,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key; 2,935,849 distinct values is near-unique"
+    },
+    {
+      "column": "date",
+      "source_file": "sales",
+      "distinct": 1034,
+      "min": 1123,
+      "median": 2590,
+      "max": 9434,
+      "skew_ratio": 8.4,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    },
+    {
+      "column": "date_block_num",
+      "source_file": "sales",
+      "distinct": 34,
+      "min": 50588,
+      "median": 87568,
+      "max": 143246,
+      "skew_ratio": 2.83,
+      "viable": true,
+      "rejected_because": ""
+    },
+    {
+      "column": "shop_id",
+      "source_file": "sales + shops",
+      "distinct": 60,
+      "min": 306,
+      "median": 42037,
+      "max": 235636,
+      "skew_ratio": 770.05,
+      "viable": true,
+      "rejected_because": ""
+    },
+    {
+      "column": "item_id",
+      "source_file": "sales + items",
+      "distinct": 21807,
+      "min": 1,
+      "median": 32,
+      "max": 31340,
+      "skew_ratio": 31340.0,
+      "viable": true,
+      "rejected_because": ""
+    },
+    {
+      "column": "item_price",
+      "source_file": "sales",
+      "distinct": 19993,
+      "min": 1,
+      "median": 1,
+      "max": 291352,
+      "skew_ratio": 291352.0,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    },
+    {
+      "column": "item_cnt_day",
+      "source_file": "sales",
+      "distinct": 198,
+      "min": 1,
+      "median": 3,
+      "max": 2629372,
+      "skew_ratio": 2629372.0,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    },
+    {
+      "column": "revenue",
+      "source_file": "derived in join",
+      "distinct": 24771,
+      "min": 1,
+      "median": 1,
+      "max": 275443,
+      "skew_ratio": 275443.0,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    },
+    {
+      "column": "shop_name",
+      "source_file": "shops",
+      "distinct": 60,
+      "min": 306,
+      "median": 42037,
+      "max": 235636,
+      "skew_ratio": 770.05,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    },
+    {
+      "column": "item_name",
+      "source_file": "items",
+      "distinct": 21807,
+      "min": 1,
+      "median": 32,
+      "max": 31340,
+      "skew_ratio": 31340.0,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    },
+    {
+      "column": "item_category_id",
+      "source_file": "items + item_categories",
+      "distinct": 84,
+      "min": 1,
+      "median": 6917,
+      "max": 564652,
+      "skew_ratio": 564652.0,
+      "viable": true,
+      "rejected_because": ""
+    },
+    {
+      "column": "item_category_name",
+      "source_file": "item_categories",
+      "distinct": 84,
+      "min": 1,
+      "median": 6917,
+      "max": 564652,
+      "skew_ratio": 564652.0,
+      "viable": false,
+      "rejected_because": "identifier/measure/time/free-text, not a grouping key"
+    }
+  ],
+  "workload": "Compute transaction count, total revenue, and mean revenue per shop_id across the joined 2,935,849-row dataset.",
+  "output_schema": {
+    "shop_id": "int64",
+    "txn_count": "int64",
+    "revenue_total": "double",
+    "revenue_mean": "double"
+  },
+  "join": {
+    "rows_before": 2935849,
+    "rows_after": 2935849,
+    "delta": 0,
+    "columns_after": 12,
+    "join_seconds": 1.2729,
+    "join_path": "sales |> shops on shop_id |> items on item_id |> item_categories on item_category_id",
+    "derived_metric": "revenue = item_price * item_cnt_day"
+  }
+}
