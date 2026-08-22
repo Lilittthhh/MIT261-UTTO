@@ -1,11 +1,11 @@
 {
   "parallelism": 4,
-  "parallel_seconds": 1.2779,
+  "parallel_seconds": 1.0069,
   "join": {
     "rows_before": 2935849,
     "rows_after": 2935849,
     "delta": 0,
-    "join_seconds": 14.4547,
+    "join_seconds": 11.9884,
     "broadcast_hash_joins": 6,
     "sort_merge_joins": 0
   },

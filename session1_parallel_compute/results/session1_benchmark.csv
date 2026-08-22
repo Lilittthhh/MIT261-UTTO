@@ -1,5 +1,5 @@
 run,parallelism_partitions,execution_time_s,groups,correct,speedup_vs_baseline,observation
-Sequential baseline,1 / non-parallel,0.0790,60,Yes,1.00,"pandas, in-process, no Spark scheduling"
-Parallel (2 partitions),2,0.8378,60,Yes,0.0943,slower than best parallel setting
-Parallel (4 partitions),4,0.7852,60,Yes,0.1006,slower than best parallel setting
-Parallel (8 partitions),8,0.7147,60,Yes,0.1105,fastest parallel setting
+Sequential baseline,1 / non-parallel,0.0772,60,Yes,1.00,"pandas, in-process, no Spark scheduling"
+Parallel (2 partitions),2,0.8553,60,Yes,0.0903,slower than best parallel setting
+Parallel (4 partitions),4,0.7441,60,Yes,0.1037,slower than best parallel setting
+Parallel (8 partitions),8,0.7269,60,Yes,0.1062,fastest parallel setting
