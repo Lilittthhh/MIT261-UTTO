@@ -172,7 +172,7 @@
     "rows_after": 2935849,
     "delta": 0,
     "columns_after": 12,
-    "join_seconds": 1.1968,
+    "join_seconds": 2.2088,
     "join_path": "sales |> shops on shop_id |> items on item_id |> item_categories on item_category_id",
     "derived_metric": "revenue = item_price * item_cnt_day"
   }
